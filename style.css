@@ -1,0 +1,7 @@
+body {
+    /* เรียกใช้ฟอนต์ Noto Sans Thai ถ้าโหลดไม่ติดให้ใช้ sans-serif แทน */
+    font-family: 'Noto Sans Thai', sans-serif;
+    
+    /* ตัวอย่างสีพื้นหลังและสีตัวอักษรโทน Shopee เพื่อนำไปใช้ประกอบ */
+    background-color: #f5f5f5; 
+}
