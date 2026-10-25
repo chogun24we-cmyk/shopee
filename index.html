@@ -1,54 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-     <!-- Font Awesome -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
 
     <!-- css -->
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="https://i.pinimg.com/736x/1f/5d/ec/1f5dec2772605ebdb412fff7827fb764.jpg">
     <title>Shopee</title>
 </head>
-<body>
-        <header>
-            <div class="top">
-                <div class="bar">
-                    <div class="left">
-                        <ul>
-                            <li><a href="#">Shopee Home</a></li>
-                            <li><a href="#">เปิดร้านค้า</a></li>
-                            <li><a href="#">ดาว์โหลด</a></li>
-                            <li><a href="#">ติดตามเราบน 
-                                <i class="fa-brands fa-facebook fa-2x"></i>
-                                <i class="fa-brands fa-instagram fa-2x"></i>
-                                <i class="fa-brands fa-line fa-2x"></i>
-                            </a></li>
-                        </ul>
-                    </div>
 
-                    <div class="right">
-                        <ul class="menu-right">
-                            <li><a href="#"><i class="fa-solid fa-bell"></i> การแจ้งเตือน</a></li>
-                            <li><a href="#"><i class="fa-regular fa-circle-question"></i> ช่วยเหลือ</a></li>
-                            <li class="language-dropdown">
-                            <span class="dropdown-toggle">
-                                <i class="fa-solid fa-globe"></i> ไทย <i class="fa-solid fa-chevron-down"></i>
-                            </span>
-                            <ul class="dropdown-menu">
-                                    <li><a href="#" class="active">ไทย</a></li>
-                                    <li><a href="#">English</a></li>
-                                    <li><a href="#">မြန်မာ</a></li>
-                            </ul>
-                            </li>
-                        </ul>
+<body>
+    <header>
+        <div class="web-bar">
+            <div class="top-bar">
+                <!-- ฝั่งซ้าย (ปรับใช้ a tag สำหรับลิงก์) -->
+                <div class="top-left">
+                    <a href="#" class="left">Shopee Mall</a>
+                    <a href="#" class="left">เปิดร้านค้า</a>
+                    <a href="#" class="left">ดาวน์โหลด</a>
+
+                    <div class="left social-links">
+                        <span>ติดต่อเราบน</span>
+                        <a href="#"><i class="fa-brands fa-facebook fa-lg"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram fa-lg"></i></a>
+                        <a href="#"><i class="fa-brands fa-line fa-lg"></i></a>
                     </div>
                 </div>
+
+                <!-- ฝั่งขวา -->
+                <div class="top-right">
+                    <ul class="menu-right">
+                        <li><a href="#">การเเจ้งเตือน</a></li>
+                        <li><a href="#">ช่วยเหลือ</a></li>
+
+                        <!-- แก้ไขโครงสร้าง Dropdown ภาษาให้ถูกต้อง -->
+                        <li class="has-dropdown">
+                            <a href="#">
+                                <i class="fa-solid fa-globe"></i> ไทย <i class="fa-solid fa-chevron-down"></i>
+                            </a>
+                            <!-- ส่วนนี้ใช้ CSS ทำ display: none และโชว์เมื่อ hover -->
+                            <ul class="dropdown">
+                                <li><a href="#">Thai</a></li>
+                                <li><a href="#">English</a></li>
+                                <li><a href="#">Japan</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="user-profile">
+                            <a href="#">
+                                <img src="https://i.pinimg.com/736x/9a/35/dc/9a35dc64f48b3e0c561aea3b73164e43.jpg"
+                                    alt="Profile">
+                                <span>mizt.xc</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </header>
+        </div>
+            <!-- logo Mall -->
+        <div class="web-bar-bottom">
+            <div class="logo">
+                <a href="#"><img src="https://i.pinimg.com/736x/3c/09/88/3c0988052c172b9681ff9e7c6a493fc8.jpg"
+                        alt="#"></a>
+                <span>
+                    <h1>Shopee Mall</h1>
+                </span>
+            </div>
+
+            <div class="bottom-bar-ri">
+                <form action="#" class="search-box">
+                    <input type="search" placeholder="ค้นหาในร้านค้า" class="search-input">
+
+                    <ul class="search-menu">
+                        <li class="bb-has-dropdown">
+                            <a href="#">
+                                ในร้านนี้ <i class="fa-solid fa-chevron-down"></i>
+                            </a>
+                            <ul class="bb-dropdown">
+                                <li><a href="#">ใน Shopee Mall</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <button type="submit" class="search-btn">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </form>
+
+                <a href="#" class="cart-icon">
+                    <i class="fa-solid fa-cart-shopping fa-2x"></i>
+                </a>
+            </div>
+        </div>
+
+    </header>
 </body>
+
 </html>
