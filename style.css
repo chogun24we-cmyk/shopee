@@ -263,3 +263,191 @@ header {
     color: #f53d2d;
     background-color: #fafafa;
 }
+
+nav{
+    background-color: white;
+    color: black;
+}
+
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 1px;
+}
+
+.carnival {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url('https://i.pinimg.com/736x/60/ae/80/60ae804d9abf5af2eb577a6ecaa76f03.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 450px;
+    height: 160px; 
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* --- Profile --- */
+.profile-top {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* คอนเทนเนอร์ของโลโก้เพื่อวางป้าย Shopee Mall ทับ */
+.logo-container {
+    position: relative; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo-container img {
+    width: 70px; 
+    height: 70px;
+    border: 3px solid rgba(255, 255, 255, 0.7); 
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* ป้าย Shopee Mall สีแดง */
+.shopee-badge {
+    position: absolute;
+    bottom: -8px;
+    background-color: #ee4d2d; 
+    color: white;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 3px;
+    white-space: nowrap;
+}
+
+/* --- ตัวอักษร --- */
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.logo-text h3 {
+    margin: 0;
+    color: white;
+    font-size: 22px; 
+    font-weight: 500;
+}
+
+.logo-text h5 {
+    margin: 0;
+    color: #e0e0e0; 
+    font-size: 13px;
+    font-weight: normal;
+}
+
+/* --- ส่วนของปุ่มกด --- */
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.btn {
+    flex: 1; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 0;
+    border: 1px solid white;
+    background-color: transparent; 
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: rgba(255, 255, 255, 0.2); 
+}
+
+
+.shop-stats-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* แบ่งครึ่งซ้าย-ขวา เท่าๆ กัน */
+    gap: 30px;
+    max-width: 800px;
+    margin: 20px auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+}
+
+/* ลบจุดหน้าลิสต์และระยะขอบของ ul */
+.menu-ul-right ul, 
+.menu-ul-left ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* ตั้งค่าให้ไอคอนและข้อความในแต่ละบรรทัดเรียงในแนวนอน */
+.menu-ul-right li, 
+.menu-ul-left li {
+    display: flex;
+    align-items: center;
+    gap: 12px; 
+    margin-bottom: 20px;
+    font-size: 15px;
+}
+
+/* สีของไอคอน SVG */
+.menu-ul-right li svg, 
+.menu-ul-left li svg {
+    color: #555555;
+    flex-shrink: 0; 
+}
+
+/* ไอคอนเครื่องหมายคำถาม (?) */
+svg.help-icon {
+    color: #a0a0a0 !important;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+/* ลบขีดเส้นใต้ลิงก์ และกำหนดสีให้กลืนกับข้อความปกติ */
+.menu-ul-right a, 
+.menu-ul-left a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+}
+
+.highlight {
+    color: #d0011b; 
+    margin-left: 4px;
+}
+
+.manus{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5px 5px;
+}
+.manus ul {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    gap: 8rem ;
+    li{
+        list-style: none;
+    }
+}
+.manus a {
+    text-decoration: none;
+    color: #333;
+}
