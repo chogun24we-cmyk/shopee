@@ -1,251 +1,507 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Font Awesome -->
+    <!-- Font Awesome 6.4.0 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Noto Sans Thai -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
 
-    <!-- css -->
-    <link rel="stylesheet" href="style.css">
     <link rel="icon" href="https://i.pinimg.com/736x/1f/5d/ec/1f5dec2772605ebdb412fff7827fb764.jpg">
-    <title>Shopee</title>
+
+    <link rel="stylesheet" href="style.css">
+    <title>Shopee mizt.xz | Official Mall Store</title>
 </head>
 
 <body>
     <header>
-        <div class="web-bar">
-            <div class="top-bar">
-                <!-- ฝั่งซ้าย (ปรับใช้ a tag สำหรับลิงก์) -->
-                <div class="top-left">
-                    <a href="#" class="left">Shopee Mall</a>
-                    <a href="#" class="left">เปิดร้านค้า</a>
-                    <a href="#" class="left">ดาวน์โหลด</a>
+        <!-- =====================================================
+         แถบสลับดูขนาดหน้าจอ (กดดูโหมดมือถือ/แท็บเล็ต/คอม ได้ทันที)
+    ====================================================== -->
+        <div class="preview-toolbar">
+            <div class="preview-toolbar-left">
+                <span class="preview-badge">LIVE UI PREVIEW</span>
+                <span>สลับโหมดเพื่อตรวจเช็คหน้าตามือถือ / แท็บเล็ต / เดสก์ท็อป:</span>
+            </div>
+            <div class="preview-buttons">
+                <button class="preview-btn active" onclick="setViewportMode('desktop', this)">
+                    <i class="fa-solid fa-desktop"></i> Desktop (เต็มจอ)
+                </button>
+                <button class="preview-btn" onclick="setViewportMode('tablet', this)">
+                    <i class="fa-solid fa-tablet-screen-button"></i> Tablet (991px)
+                </button>
+                <button class="preview-btn" onclick="setViewportMode('mobile', this)">
+                    <i class="fa-solid fa-mobile-screen-button"></i> Mobile (มือถือ)
+                </button>
+            </div>
+        </div>
 
-                    <div class="left social-links">
-                        <span>ติดต่อเราบน</span>
-                        <a href="#"><i class="fa-brands fa-facebook fa-lg"></i></a>
-                        <a href="#"><i class="fa-brands fa-instagram fa-lg"></i></a>
-                        <a href="#"><i class="fa-brands fa-line fa-lg"></i></a>
-                    </div>
-                </div>
+        <!-- กล่องหลักที่จำลองขนาดจอได้ -->
+        <div id="app-viewport-wrapper">
 
-                <!-- ฝั่งขวา -->
-                <div class="top-right">
-                    <ul class="menu-right">
-                        <li><a href="#">การเเจ้งเตือน</a></li>
-                        <li><a href="#">ช่วยเหลือ</a></li>
+            <!-- ================= HEADER ================= -->
+            <header>
+                <div class="web-bar">
+                    <div class="top-bar">
+                        <!-- ฝั่งซ้าย -->
+                        <div class="top-left">
+                            <a href="#top" class="left" onclick="filterCategory('ALL', null)">Shopee Mall</a>
+                            <a href="# seller" class="left"
+                                onclick="showToast('เปิดหน้าศูนย์ผู้ขาย Shopee Mall')">เปิดร้านค้า</a>
+                            <a href="#download" class="left"
+                                onclick="showToast('ดาวน์โหลดแอป Shopee บน iOS / Android')">ดาวน์โหลด</a>
 
-                        <!--  Dropdown  -->
-                        <li class="has-dropdown">
-                            <a href="#">
-                                <i class="fa-solid fa-globe"></i> ไทย <i class="fa-solid fa-chevron-down"></i>
-                            </a>
-                            <!-- ส่วนนี้ใช้ CSS ทำ display: none และโชว์เมื่อ hover -->
-                            <ul class="dropdown">
-                                <li><a href="#">Thai</a></li>
-                                <li><a href="#">English</a></li>
-                                <li><a href="#">Japan</a></li>
+                            <div class="left social-links">
+                                <span><a href="#social">ติดต่อเราบน</a></span>
+                                <a href="https://facebook.com" target="_blank" rel="noopener"><i
+                                        class="fa-brands fa-facebook fa-lg"></i></a>
+                                <a href="https://instagram.com" target="_blank" rel="noopener"><i
+                                        class="fa-brands fa-instagram fa-lg"></i></a>
+                                <a href="https://line.me" target="_blank" rel="noopener"><i
+                                        class="fa-brands fa-line fa-lg"></i></a>
+                            </div>
+                        </div>
+
+                        <!-- ฝั่งขวา -->
+                        <div class="top-right">
+                            <ul class="menu-right">
+                                <li>
+                                    <a href="javascript:void(0)"
+                                        onclick="showToast('🔔 แจ้งเตือนใหม่: คอลเลกชัน CARNIVAL FW26 วางจำหน่ายแล้ว!')">
+                                        <i class="fa-regular fa-bell"></i> การเเจ้งเตือน <span
+                                            class="notif-dot">3</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" onclick="toggleChat(true)">
+                                        <i class="fa-regular fa-circle-question"></i> ช่วยเหลือ
+                                    </a>
+                                </li>
+
+                                <!-- Dropdown เปลี่ยนภาษา -->
+                                <li class="has-dropdown">
+                                    <a href="javascript:void(0)">
+                                        <i class="fa-solid fa-globe"></i> <span id="current-lang">ไทย</span> <i
+                                            class="fa-solid fa-chevron-down" style="font-size: 10px;"></i>
+                                    </a>
+                                    <ul class="dropdown">
+                                        <li><a href="javascript:void(0)" onclick="setLanguage('ไทย')">Thai
+                                                <span>✓</span></a></li>
+                                        <li><a href="javascript:void(0)" onclick="setLanguage('EN')">English</a></li>
+                                        <li><a href="javascript:void(0)" onclick="setLanguage('JP')">Japan</a></li>
+                                    </ul>
+                                </li>
+
+                                <li class="user-profile">
+                                    <a href="javascript:void(0)"
+                                        onclick="showToast('สวัสดีคุณ mizt.xc (สมาชิกระดับ Platinum)')">
+                                        <img src="https://i.pinimg.com/736x/9a/35/dc/9a35dc64f48b3e0c561aea3b73164e43.jpg"
+                                            alt="Profile">
+                                        <span>mizt.xc</span>
+                                    </a>
+                                </li>
                             </ul>
-                        </li>
-
-                        <li class="user-profile">
-                            <a href="#">
-                                <img src="https://i.pinimg.com/736x/9a/35/dc/9a35dc64f48b3e0c561aea3b73164e43.jpg"
-                                    alt="Profile">
-                                <span>mizt.xc</span>
-                            </a>
-                        </li>
-                    </ul>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <!-- logo Mall -->
-        <div class="web-bar-bottom">
-            <div class="logo">
-                <a href="#"><img src="https://i.pinimg.com/736x/3c/09/88/3c0988052c172b9681ff9e7c6a493fc8.jpg"
-                        alt="#"></a>
-                <span>
-                    <h1>Shopee Mall</h1>
-                </span>
-            </div>
 
-            <div class="bottom-bar-ri">
-                <form action="#" class="search-box">
-                    <input type="search" placeholder="ค้นหาในร้านค้า" class="search-input">
+                <!-- Logo Mall & Search Box -->
+                <div class="web-bar-bottom">
+                    <div class="logo">
+                        <a href="javascript:void(0)"
+                            onclick="filterCategory('HOME', document.querySelector('.manus a'))">
+                            <img src="https://i.pinimg.com/736x/3c/09/88/3c0988052c172b9681ff9e7c6a493fc8.jpg"
+                                alt="Shopee Mall Logo">
+                        </a>
+                        <span>
+                            <h1>Shopee Mall</h1>
+                        </span>
+                    </div>
 
-                    <!--  Dropdown  -->
-                    <ul class="search-menu">
-                        <li class="bb-has-dropdown">
-                            <a href="#">
-                                ในร้านนี้ <i class="fa-solid fa-chevron-down"></i>
-                            </a>
-                            <ul class="bb-dropdown">
-                                <li><a href="#">ใน Shopee Mall</a></li>
+                    <div class="bottom-bar-ri">
+                        <form action="javascript:void(0)" class="search-box" onsubmit="handleSearchSubmit(event)">
+                            <input type="search" id="searchInput"
+                                placeholder="ค้นหาในร้านค้า mizt.xz (เช่น เสื้อยืด, รองเท้า, หมวก)..."
+                                class="search-input" oninput="handleSearchInput(this.value)">
+
+                            <!-- Dropdown ขอบเขตการค้นหา -->
+                            <ul class="search-menu">
+                                <li class="bb-has-dropdown">
+                                    <a href="javascript:void(0)">
+                                        <span id="search-scope-label">ในร้านนี้</span> <i
+                                            class="fa-solid fa-chevron-down" style="font-size: 11px;"></i>
+                                    </a>
+                                    <ul class="bb-dropdown">
+                                        <li><a href="javascript:void(0)"
+                                                onclick="setSearchScope('ในร้านนี้')">ในร้านนี้</a></li>
+                                        <li><a href="javascript:void(0)" onclick="setSearchScope('ใน Shopee Mall')">ใน
+                                                Shopee Mall</a></li>
+                                    </ul>
+                                </li>
                             </ul>
-                        </li>
-                    </ul>
-                    <!-- icon- search -->
-                    <button type="submit" class="search-btn">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </button>
-                </form>
 
-                <a href="#" class="cart-icon">
-                    <i class="fa-solid fa-cart-shopping fa-2x"></i>
-                </a>
-            </div>
-        </div>
-    </header>
+                            <!-- ปุ่มค้นหา -->
+                            <button type="submit" class="search-btn" aria-label="Search">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                        </form>
 
-    <nav>
-        <div class="container">
-            <div class="carnival">
-                <!-- ส่วนบน โลโก้ -->
-                <div class="profile-top">
-                    <div class="logo-container">
-                        <img src="https://i.pinimg.com/736x/d6/a4/da/d6a4daf34ec69ca29d84de19616fe693.jpg" alt="logo">
-                        <div class="shopee-badge">Shopee Mall</div>
-                    </div>
-
-                    <div class="logo-text">
-                        <h3>mizt.xz</h3>
-                        <h5>เข้าสู่ระบบล่าสุดเมื่อ 1 ชั่วโมง ที่ผ่านมา</h5>
+                        <!-- ตะกร้าสินค้าพร้อมตัวเลขแจ้งเตือน -->
+                        <a href="javascript:void(0)" class="cart-icon" onclick="toggleCart(true)" aria-label="Cart">
+                            <i class="fa-solid fa-cart-shopping fa-2x"></i>
+                            <span class="cart-badge" id="cart-count-badge">2</span>
+                        </a>
                     </div>
                 </div>
+            </header>
 
-                <!-- ส่วนล่าง: ปุ่มกด -->
-                <div class="action-buttons">
-                    <a href="#" class="btn">
-                        <span>+</span> ติดตาม
-                    </a>
-                    <a href="#" class="btn">
-                        <!-- ใช้ SVG เป็นไอคอน -->
-                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2"
-                            fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                        </svg>
-                        พูดคุย
-                    </a>
+            <!-- ================= NAV: SHOP PROFILE & STATS & CATEGORIES ================= -->
+            <nav id="top">
+                <div class="container">
+                    <!-- การ์ดร้านค้า .carnival -->
+                    <div class="carnival">
+                        <div class="profile-top">
+                            <div class="logo-container">
+                                <img src="https://i.pinimg.com/736x/d6/a4/da/d6a4daf34ec69ca29d84de19616fe693.jpg"
+                                    alt="mizt.xz logo">
+                                <div class="shopee-badge">Shopee Mall</div>
+                            </div>
+
+                            <div class="logo-text">
+                                <h3>mizt.xz <i class="fa-solid fa-circle-check verified-icon"
+                                        title="Official Verified Store"></i></h3>
+                                <h5><span class="online-dot"></span> เข้าสู่ระบบล่าสุดเมื่อ 1 ชั่วโมง ที่ผ่านมา</h5>
+                            </div>
+                        </div>
+
+                        <!-- ปุ่มกด ติดตาม & พูดคุย -->
+                        <div class="action-buttons">
+                            <button type="button" class="btn" id="followBtn" onclick="toggleFollow()">
+                                <span id="followIcon">+</span> <span id="followText">ติดตาม</span>
+                            </button>
+                            <button type="button" class="btn" onclick="toggleChat(true)">
+                                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2"
+                                    fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                                พูดคุย
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- สถิติร้านค้า .shop-stats-wrapper -->
+                    <div class="shop-stats-wrapper">
+                        <div class="menu-ul-right">
+                            <ul>
+                                <li>
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M3 9h18v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z" />
+                                        <path d="M3 9l2.45-4.9A2 2 0 0 1 7.24 3h9.52a2 2 0 0 1 1.8 1.1L21 9" />
+                                        <path d="M12 3v6" />
+                                    </svg>
+                                    <a href="#products-anchor">รายการสินค้า:<span class="stat-val">1.1k</span></a>
+                                </li>
+                                <li>
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                                        <circle cx="8.5" cy="7" r="4" />
+                                        <line x1="20" y1="8" x2="20" y2="14" />
+                                        <line x1="17" y1="11" x2="23" y2="11" />
+                                    </svg>
+                                    <span>กำลังติดตาม:<span class="stat-val">4</span></span>
+                                </li>
+                                <li>
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                                        <circle cx="8" cy="10" r="1.5" />
+                                        <circle cx="12" cy="10" r="1.5" />
+                                        <circle cx="16" cy="10" r="1.5" />
+                                    </svg>
+                                    <span>ประสิทธิภาพการแชท:<span class="stat-val">70%
+                                            (ภายในไม่กี่ชั่วโมง)</span></span>
+                                </li>
+                                <li>
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="3" y="4" width="18" height="16" rx="2" ry="2" />
+                                        <line x1="8" y1="10" x2="16" y2="10" />
+                                        <line x1="8" y1="14" x2="12" y2="14" />
+                                    </svg>
+                                    <span>เลขทะเบียนนิติบุคคล:<span class="highlight">0105555081561</span></span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="menu-ul-left">
+                            <ul>
+                                <li>
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                                        <circle cx="9" cy="7" r="4" />
+                                        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                                    </svg>
+                                    <span>ผู้ติดตาม:<span class="stat-val" id="followerCountText">210.2k</span></span>
+                                </li>
+                                <li>
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <polygon
+                                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                                    </svg>
+                                    <a href="#products-anchor">คะแนน:<span class="stat-val">4.9 (การให้คะแนนทั้งหมด
+                                            30.6k)</span></a>
+                                </li>
+                                <li>
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                                        <circle cx="8.5" cy="7" r="4" />
+                                        <polyline points="17 11 19 13 23 9" />
+                                    </svg>
+                                    <span>เข้าร่วมเมื่อ:<span class="stat-val">5 ปี ที่ผ่านมา</span></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="shop-stats-wrapper">
-                <div class="menu-ul-right">
-                    <ul>
-                        <li>
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M3 9h18v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z" />
-                                <path d="M3 9l2.45-4.9A2 2 0 0 1 7.24 3h9.52a2 2 0 0 1 1.8 1.1L21 9" />
-                                <path d="M12 3v6" />
-                            </svg>
-                            <a href="#">รายการสินค้า:<span style="color: orangered; padding-left: 6px;" >1.1k</span></a>
-                        </li>
-                        <li>
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                                <circle cx="8.5" cy="7" r="4" />
-                                <line x1="20" y1="8" x2="20" y2="14" />
-                                <line x1="17" y1="11" x2="23" y2="11" />
-                            </svg>
-                            กำลังติดตาม:<span style="color: orangered;" padding-left: 6px;>4</span>
-                        </li>
-                        <li>
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                                <circle cx="8" cy="10" r="1.5" />
-                                <circle cx="12" cy="10" r="1.5" />
-                                <circle cx="16" cy="10" r="1.5" />
-                            </svg>
-                            ประสิทธิภาพการแชท:<span style="color: orangered;">70% (ภายในไม่กี่ชั่วโมง)</span>
-                        </li>
-                        <li>
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                <rect x="3" y="4" width="18" height="16" rx="2" ry="2" />
-                                <line x1="8" y1="10" x2="16" y2="10" />
-                                <line x1="8" y1="14" x2="12" y2="14" />
-                            </svg>
-                            เลขทะเบียนนิติบุคคล:<span class="highlight">0105555081561</span>
+                <!-- เมนูนำทาง .manus -->
+                <div class="manus">
+                    <ul id="categoryMenu">
+                        <li><a href="javascript:void(0)" class="active"
+                                onclick="filterCategory('HOME', this)">หน้าแรก</a></li>
+                        <li><a href="javascript:void(0)" onclick="filterCategory('ALL', this)">สินค้าทั้งหมด</a></li>
+                        <li><a href="javascript:void(0)" onclick="filterCategory('CLOTHING', this)">CLOTHING</a></li>
+                        <li><a href="javascript:void(0)" onclick="filterCategory('FOOTWEAR', this)">FOOTWEAR</a></li>
+                        <li><a href="javascript:void(0)" onclick="filterCategory('CARNIVAL', this)">CARNIVAL</a></li>
+                        <li><a href="javascript:void(0)" onclick="filterCategory('HOME & Away', this)">HOME & Away</a>
                         </li>
                     </ul>
                 </div>
-                <div class="menu-ul-left">
-                    <ul>
-                        <li>
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                                <circle cx="9" cy="7" r="4" />
-                                <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                            </svg>
-                            ผู้ติดตาม:<span style="color: orangered;">210.2k</span>
-                        </li>
-                        <li>
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                <polygon
-                                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                            </svg>
-                            <a href="#">คะแนน:<span style="color: orangered; padding-left: 8px; ">4.9 (การให้คะแนนทั้งหมด 30.6k)</span></a>
-                        </li>
-                        <li>
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                                <circle cx="8.5" cy="7" r="4" />
-                                <polyline points="17 11 19 13 23 9" />
-                            </svg>
-                            เข้าร่วมเมื่อ:<span style="color: orangered;">5 ปี ที่ผ่านมา</span>
-                        </li>
-                    </ul>
+            </nav>
+
+            <!-- ================= VOUCHER STRIP (โค้ดส่วนลดร้านค้า) ================= -->
+            <section class="voucher-section">
+                <div class="voucher-container">
+                    <div class="voucher-header">
+                        <div class="voucher-title">
+                            <i class="fa-solid fa-ticket"></i> โค้ดส่วนลดพิเศษจากร้าน mizt.xz
+                        </div>
+                        <span style="font-size: 11.5px; color: #888;">ใช้ได้อัตโนมัติในตะกร้าสินค้า</span>
+                    </div>
+                    <div class="voucher-grid">
+                        <div class="voucher-card">
+                            <div class="voucher-info">
+                                <h4>ส่วนลด ฿150</h4>
+                                <p>ขั้นต่ำ ฿1,500 • เฉพาะสินค้าในร้าน</p>
+                            </div>
+                            <button class="voucher-btn" onclick="claimVoucher(this, 150, 'ลด ฿150')">เก็บโค้ด</button>
+                        </div>
+                        <div class="voucher-card">
+                            <div class="voucher-info">
+                                <h4>ส่วนลด ฿350 VIP</h4>
+                                <p>ขั้นต่ำ ฿3,000 • คอลเลกชัน CARNIVAL</p>
+                            </div>
+                            <button class="voucher-btn"
+                                onclick="claimVoucher(this, 350, 'ลด ฿350 VIP')">เก็บโค้ด</button>
+                        </div>
+                        <div class="voucher-card">
+                            <div class="voucher-info">
+                                <h4>ส่งฟรี Shopee Mall</h4>
+                                <p>ขั้นต่ำ ฿0 • จัดส่งด่วนพิเศษทั่วไทย</p>
+                            </div>
+                            <button class="voucher-btn" onclick="claimVoucher(this, 60, 'ส่งฟรี ฿60')">เก็บโค้ด</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= ASIDE: LOOKBOOK BANNERS (.container-img) ================= -->
+            <aside id="lookbookSection">
+                <div class="container-img">
+                    <!-- รูปแบนเนอร์ที่ 1 -->
+                    <div class="img-1 banner-card"
+                        onclick="openLightbox('https://i.pinimg.com/1200x/91/52/5b/91525b29919d8ddf14ff1008ad7e7114.jpg')">
+                        <img src="https://i.pinimg.com/1200x/91/52/5b/91525b29919d8ddf14ff1008ad7e7114.jpg"
+                            alt="Lookbook Banner 1">
+                        <div class="banner-overlay">
+                            <span class="banner-tag"><i class="fa-solid fa-fire" style="color:#ff1f02;"></i> MIZT.XZ x
+                                CARNIVAL 2026 DROP</span>
+                            <span class="banner-tag"><i class="fa-solid fa-magnifying-glass-plus"></i>
+                                คลิกดูภาพขยาย</span>
+                        </div>
+                    </div>
+
+                    <!-- รูปคู่ .im (.img-2 และ .img-3) -->
+                    <div class="im">
+                        <div class="img-2 banner-card"
+                            onclick="openLightbox('https://i.pinimg.com/1200x/c2/d0/48/c2d0487405a68fe35bfc28d1fc3d54da.jpg')">
+                            <img src="https://i.pinimg.com/1200x/c2/d0/48/c2d0487405a68fe35bfc28d1fc3d54da.jpg"
+                                alt="Lookbook Left">
+                            <div class="banner-overlay">
+                                <span class="banner-tag">BLACK MONOCHROME SERIES</span>
+                            </div>
+                        </div>
+                        <div class="img-3 banner-card"
+                            onclick="openLightbox('https://i.pinimg.com/736x/57/5d/ff/575dfff4abdd871cd9582f9c9117b541.jpg')">
+                            <img src="https://i.pinimg.com/736x/57/5d/ff/575dfff4abdd871cd9582f9c9117b541.jpg"
+                                alt="Lookbook Right">
+                            <div class="banner-overlay">
+                                <span class="banner-tag">STREETWEAR ARCHIVE EDITION</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- รูปแบนเนอร์ที่ 4 -->
+                    <div class="img-4 banner-card"
+                        onclick="openLightbox('https://i.pinimg.com/736x/e7/60/d0/e760d0049c9515219cb3dcd90224116c.jpg')">
+                        <img src="https://i.pinimg.com/736x/e7/60/d0/e760d0049c9515219cb3dcd90224116c.jpg"
+                            alt="Lookbook Banner 4">
+                        <div class="banner-overlay">
+                            <span class="banner-tag">LIMITED CAPSULE COLLECTION</span>
+                            <span class="banner-tag"><i class="fa-solid fa-expand"></i> ขยายเต็มจอ</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- ================= PRODUCT SHOWCASE SECTION ================= -->
+            <section class="products-section" id="products-anchor">
+                <div class="filter-bar">
+                    <div class="filter-left">
+                        <span class="filter-label"><i class="fa-solid fa-sliders"></i> เรียงตาม:</span>
+                        <button class="sort-btn active" onclick="sortProducts('popular', this)">ยอดนิยม</button>
+                        <button class="sort-btn" onclick="sortProducts('latest', this)">ล่าสุด</button>
+                        <button class="sort-btn" onclick="sortProducts('sales', this)">สินค้าขายดี</button>
+                        <button class="sort-btn" onclick="sortProducts('price-asc', this)">ราคา: ต่ำไปสูง</button>
+                        <button class="sort-btn" onclick="sortProducts('price-desc', this)">ราคา: สูงไปต่ำ</button>
+                    </div>
+                    <div class="result-count" id="productResultCount">แสดง 8 รายการ</div>
+                </div>
+
+                <!-- ตารางการ์ดสินค้า -->
+                <div class="product-grid" id="productGrid"></div>
+            </section>
+
+            <!-- ================= FOOTER ================= -->
+            <footer>
+                <p>© 2026 Shopee Mall Official Store — <strong>mizt.xz</strong> (เลขทะเบียนนิติบุคคล: 0105555081561)</p>
+                <p style="margin-top: 6px; font-size: 11.5px; color: #555;">ของแท้ 100% การันตีโดย Shopee Mall •
+                    คืนเงิน/สินค้าใน 15 วัน • จัดส่งฟรีทั่วประเทศ</p>
+            </footer>
+
+            <!-- ================= MOBILE BOTTOM NAVIGATION ================= -->
+            <div class="mobile-bottom-nav">
+                <button class="mob-nav-item active"
+                    onclick="filterCategory('HOME', document.querySelector('#categoryMenu a')); window.scrollTo({top:0, behavior:'smooth'})">
+                    <i class="fa-solid fa-house"></i>
+                    <span>หน้าแรก</span>
+                </button>
+                <button class="mob-nav-item"
+                    onclick="document.getElementById('products-anchor').scrollIntoView({behavior:'smooth'})">
+                    <i class="fa-solid fa-border-all"></i>
+                    <span>สินค้าทั้งหมด</span>
+                </button>
+                <button class="mob-nav-item" onclick="toggleChat(true)">
+                    <i class="fa-regular fa-comment-dots"></i>
+                    <span>พูดคุย</span>
+                </button>
+                <button class="mob-nav-item" onclick="toggleCart(true)">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span>รถเข็น (<span id="mob-cart-count">2</span>)</span>
+                </button>
+            </div>
+
+        </div><!-- จบ #app-viewport-wrapper -->
+
+        <!-- =====================================================
+         SLIDE-OUT SHOPPING CART DRAWER
+    ====================================================== -->
+        <div class="drawer-backdrop" id="cartBackdrop" onclick="toggleCart(false)"></div>
+        <aside class="cart-drawer" id="cartDrawer">
+            <div class="drawer-header">
+                <h3><i class="fa-solid fa-cart-shopping" style="color:#ff1f02;"></i> รถเข็นสินค้า mizt.xz</h3>
+                <button class="close-btn" onclick="toggleCart(false)"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="cart-items-list" id="cartItemsList"></div>
+            <div class="drawer-footer">
+                <div class="summary-row">
+                    <span>รวมค่าสินค้า</span>
+                    <span id="cartSubtotal">฿0</span>
+                </div>
+                <div class="summary-row" style="color: #22c55e;">
+                    <span>ส่วนลดโค้ดร้านค้า</span>
+                    <span id="cartDiscount">-฿0</span>
+                </div>
+                <div class="summary-row total">
+                    <span>ยอดชำระสุทธิ</span>
+                    <span id="cartTotal" style="color:#ff4d2d;">฿0</span>
+                </div>
+                <button class="checkout-btn" onclick="handleCheckout()">
+                    สั่งซื้อสินค้า (<span id="checkoutCount">0</span>)
+                </button>
+            </div>
+        </aside>
+
+        <!-- =====================================================
+         FLOATING CHAT WIDGET (พูดคุยกับร้าน mizt.xz)
+    ====================================================== -->
+        <div class="chat-widget" id="chatWidget">
+            <div class="chat-header">
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <img src="https://i.pinimg.com/736x/d6/a4/da/d6a4daf34ec69ca29d84de19616fe693.jpg" alt="shop"
+                        style="width:28px; height:28px; border-radius:50%; object-fit:cover;">
+                    <div>
+                        <div style="font-size:13.5px; font-weight:700;">mizt.xz Official</div>
+                        <div style="font-size:10.5px; opacity:0.9;">ตอบกลับภายในไม่กี่นาที</div>
+                    </div>
+                </div>
+                <button class="close-btn" style="background:rgba(0,0,0,0.25); color:#fff;" onclick="toggleChat(false)">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="chat-bubble bot">
+                    สวัสดีครับ 👋 ยินดีต้อนรับสู่ร้าน <strong>mizt.xz Shopee Mall</strong> สนใจสอบถามไซส์เสื้อ รองเท้า
+                    หรือโปรโมชัน ทักแชทได้เลยครับ!
                 </div>
             </div>
+            <div class="chat-quick-pills">
+                <button class="chat-pill"
+                    onclick="sendQuickChat('ขอตารางไซส์เสื้อ Oversize ครับ')">ตารางไซส์เสื้อ</button>
+                <button class="chat-pill"
+                    onclick="sendQuickChat('สินค้าพร้อมส่งวันนี้ไหมครับ?')">สินค้าพร้อมส่งไหม?</button>
+                <button class="chat-pill" onclick="sendQuickChat('มีโค้ดส่วนลดเพิ่มไหมครับ?')">ขอโค้ดส่วนลด</button>
+            </div>
+            <form class="chat-input-row" onsubmit="handleChatSubmit(event)">
+                <input type="text" id="chatInput" placeholder="พิมพ์ข้อความถึงร้านค้า...">
+                <button type="submit"><i class="fa-solid fa-paper-plane"></i></button>
+            </form>
         </div>
 
-        <div class="manus">
-            <ul>
-                <li><a href="#">หน้าแรก</a></li>
-                <li><a href="#">สินค้าทั้งหมด</a></li>
-                <li><a href="#">CLOTHING</a></li>
-                <li><a href="#">FOOTWEAR</a></li>
-                <li><a href="#">CARNIVAL</a></li>
-                <li><a href="#">HOME & Away</a></li>
-            </ul>
+        <!-- =====================================================
+         LIGHTBOX MODAL สำหรับดูรูปแบนเนอร์ขยาย
+    ====================================================== -->
+        <div class="lightbox-modal" id="lightboxModal" onclick="closeLightbox()">
+            <img id="lightboxImg" src="" alt="Full Preview">
         </div>
 
-    </nav>
+        <!-- =====================================================
+         TOAST NOTIFICATION CONTAINER
+    ====================================================== -->
+        <div class="toast-container" id="toastContainer"></div>
 
-
-    <aside>
-        <div class="container-img">
-            <div class="img-1">
-                <img src="https://i.pinimg.com/1200x/91/52/5b/91525b29919d8ddf14ff1008ad7e7114.jpg" alt="#">
-            </div>
-            <div class="im">
-                <div class="img-2">
-                    <img src="https://i.pinimg.com/1200x/c2/d0/48/c2d0487405a68fe35bfc28d1fc3d54da.jpg" alt="#">
-                </div>
-                <div class="img-3">
-                    <img src="https://i.pinimg.com/736x/57/5d/ff/575dfff4abdd871cd9582f9c9117b541.jpg" alt="#">
-                </div>
-            </div>
-
-            <div class="img-4">
-                <img src="https://i.pinimg.com/736x/e7/60/d0/e760d0049c9515219cb3dcd90224116c.jpg" alt="#">
-            </div>
-        </div>
-    </aside>
+        <script src="script.js"></script>
 </body>
-
 </html>
